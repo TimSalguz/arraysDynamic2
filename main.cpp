@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 //Сумма цифр числа
 int numSum(int a)
@@ -38,14 +39,21 @@ int firstDigit(int number)
 
 int main()
 {
-    int* arr = new int;
+    std::ifstream in("input.txt");
+    std::string s;
+    int a = 0;
+    if (!in)
+        std::cout << "Error" << std::endl;
+    for (a = 0; !in.eof(); a++)
+        in >> s;
+
+    int* arr = new int[a];
     bool containsFirst1;
     int chislo;
     int massize = 0;
-
-    std::ifstream in("input.txt");
+    in.close();
+    in.open("input.txt");
     std::ofstream out("output.txt");
-
     std::cout << "Before:" << std::endl;
 
     //Считывает из файла и записывает в массив
@@ -116,5 +124,5 @@ int main()
         out << arr[i] << std::endl;
         std::cout << arr[i] << std::endl;
     }
-    //delete arr;
+    delete[] arr;
 }
